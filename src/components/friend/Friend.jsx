@@ -1,7 +1,18 @@
 import React from "react";
 import Button from "../ui/button/Button";
 
-const Friend = ({ image, name, id, balance }) => {
+const Friend = ({
+  image,
+  name,
+  id,
+  balance,
+  onSelectFriend,
+  selectedFreind,
+}) => {
+  const handlerSelect = () => {
+    onSelectFriend({ id, name, image, balance });
+  };
+
   return (
     <li>
       <img src={image} alt={name} />
@@ -17,7 +28,13 @@ const Friend = ({ image, name, id, balance }) => {
           {name} owes you {balance} €
         </p>
       )}
-      <Button className="button">Select</Button>
+      <Button className="button" onClick={handlerSelect}>
+        {selectedFreind
+          ? selectedFreind.id === id
+            ? "Close"
+            : "Select"
+          : "Select"}
+      </Button>
     </li>
   );
 };

@@ -1,13 +1,14 @@
 import React from "react";
 import Friend from "../friend/Friend";
-const FriendsList = ({ friends }) => {
-  console.log(friends);
+const FriendsList = ({ friends, onSelectFriend, selectedFreind }) => {
   return (
     <ul>
       {friends.map((friend) => {
         const { name, id, image, balance } = friend;
         return (
           <Friend
+            onSelectFriend={onSelectFriend}
+            selectedFreind={selectedFreind}
             key={friend.id}
             name={name}
             image={image}
