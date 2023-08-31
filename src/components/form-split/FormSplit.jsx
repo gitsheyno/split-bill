@@ -1,8 +1,9 @@
 import React from "react";
 import Button from "../ui/button/Button";
+import From from "../ui/form/Form";
 const FormSplit = () => {
   return (
-    <form className="form-split-bill">
+    <From className="form-split-bill">
       <h2>Split a bill with friend name</h2>
 
       <label>💰 Bill value</label>
@@ -21,7 +22,7 @@ const FormSplit = () => {
       </select>
 
       <Button className="button">Split bill</Button>
-    </form>
+    </From>
   );
 };
 
