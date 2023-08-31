@@ -43,6 +43,17 @@ function App() {
 
     if (showAddFriend) setShowAddFriend(!showAddFriend);
   };
+
+  const handlerBalance = (newBalance, id) => {
+    setFreind((prevState) =>
+      prevState.map((friend) =>
+        friend.id === id ? { ...friend, balance: newBalance } : friend
+      )
+    );
+    setSelectFriend(null);
+  };
+
+  console.log(friend);
   return (
     <div className="app">
       <div className="sidebar">
@@ -56,7 +67,12 @@ function App() {
           {showAddFriend ? "Close" : "Add friend"}
         </Button>
       </div>
-      {selectedFreind && <FormSplit selectedFreind={selectedFreind} />}
+      {selectedFreind && (
+        <FormSplit
+          selectedFreind={selectedFreind}
+          handlerBalance={handlerBalance}
+        />
+      )}
     </div>
   );
 }

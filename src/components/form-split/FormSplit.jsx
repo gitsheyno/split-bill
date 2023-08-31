@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Button from "../ui/button/Button";
 import From from "../ui/form/Form";
-const FormSplit = ({ selectedFreind }) => {
-  const { name } = selectedFreind;
+const FormSplit = ({ selectedFreind, handlerBalance }) => {
+  const { name, id } = selectedFreind;
   const [bill, setBill] = useState("");
   const [ownerExpense, setOwnerExpense] = useState("");
   const [whoPays, setWhoPays] = useState("User");
+
+  const friendExpense = bill && ownerExpense && bill - ownerExpense;
   const resetInputs = () => {
     setBill("");
     setWhoPays("User");
@@ -20,7 +22,7 @@ const FormSplit = ({ selectedFreind }) => {
       resetInputs();
     };
   }, [selectedFreind]);
-  // const freindsExpense =
+
   const handlerBill = (e) => {
     setBill(+e.target.value);
   };
@@ -33,8 +35,13 @@ const FormSplit = ({ selectedFreind }) => {
   const handerWhoPays = (e) => {
     setWhoPays(e.target.value);
   };
+
+  const handlerSubmitForm = (e) => {
+    e.preventDefault();
+    handlerBalance(whoPays === "User" ? -friendExpense : friendExpense, id);
+  };
   return (
-    <From className="form-split-bill">
+    <From className="form-split-bill" onSubmit={handlerSubmitForm}>
       <h2>Split a bill with {name}</h2>
 
       <label>💰 Bill value</label>
@@ -44,11 +51,7 @@ const FormSplit = ({ selectedFreind }) => {
       <input type="text" value={ownerExpense} onChange={handlerOwnerBill} />
 
       <label>🕺🏼 {name} expense</label>
-      <input
-        type="text"
-        disabled
-        value={bill && ownerExpense && bill - ownerExpense}
-      />
+      <input type="text" disabled value={friendExpense} />
 
       <label>🤑 who is paying the bill</label>
       <select value={whoPays} onChange={handerWhoPays}>
